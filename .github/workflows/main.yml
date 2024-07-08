@@ -8,13 +8,43 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - name: Passo 1
-        run: "echo Construir a imagem da aplicação"
-      - name: Passo 2
-        run: "echo Publicar a imagem no dockerhub"
+      - name: Checkout do codigo fonte 1
+        uses: actions/checkout@v4.1.7
+      - name: Docker Login
+        uses: docker/login-action@v3.2.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Faz o build da imagem e da o push para o docker hub
+        uses: docker/build-push-action@v6
+        with:
+          context: ./src
+          push: true
+          file: ./src/Review-Filmes.Web/Dockerfile
+          tags: |
+            gabrielgmm/reviewfilmes:v${{github.run_number}}
+            gabrielgmm/reviewfilmes:latest
+          
   CD:
     runs-on: ubuntu-latest
+    needs: [CI]
     steps:
-      - name: Passo 1
-        run: "echo Deploy da aplicacao"
+      - name: Checkout do codigo fonte 2
+        uses: actions/checkout@v4.1.7
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name:  Configuracao de contexto da aws
+        run: "aws eks update-kubeconfig --name awscluster2"          
+      - name: Deploy no Kubernet
+        uses: Azure/k8s-deploy@v4.9
+        with:
+           manifests: |
+              ./aws/deployment.yaml
+           images: gabrielgmm/reviewfilmes:v${{github.run_number}}
+           
+        
           
