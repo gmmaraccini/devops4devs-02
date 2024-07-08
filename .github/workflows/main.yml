@@ -16,13 +16,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Faz o build da imagem e da o push para o docker hub
-        uses: docker/build-push-action@v${{ github.run_number }} 
+        uses: docker/build-push-action@v6
         with:
           context: ./src
           push: true
           file: ./src/Review-Filmes.Web/Dockerfile
           tags: |
-            gabrielgmm/reviewfilmes:v8
+            gabrielgmm/reviewfilmes:v${{github.run_number}}
             gabrielgmm/reviewfilmes:latest
           
   CD:
