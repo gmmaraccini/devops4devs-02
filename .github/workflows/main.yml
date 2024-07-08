@@ -8,8 +8,8 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - name: Passo 1
-        run: "echo Construir a imagem da aplicação"
+      - name: Checkout do codigo fonte
+        uses: actions/checkout@v4.1.7
       - name: Passo 2
         run: "echo Publicar a imagem no dockerhub"
   CD:
