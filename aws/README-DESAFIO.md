@@ -15,4 +15,14 @@ s
 O video da demonstração do funcionamento do AWS esta aqui:
 https://vimeo.com/manage/videos/980171672/5377db82b2?extension_recording=true
 
-obs - O github esta errado no site das instruções, o correto é o https://github.com/KubeDev/devops4devs-02 , ja devidamente forkeado
+
+=========================
+
+
+PIPELINE
+
+Video de demonstração do funcionamento da pipeline:
+https://vimeo.com/manage/videos/980205796/c47db72a72?extension_recording=true
+
+Codigo esta no caminho de workflow padrao deste projeto
+
