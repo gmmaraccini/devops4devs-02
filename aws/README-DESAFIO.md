@@ -9,7 +9,7 @@ aws configure
 aws eks update-kubeconfig --name awscluster2 ( para entrar no contexto)
 
 
-
+c
 
 O video da demonstração do funcionamento do AWS esta aqui:
 https://vimeo.com/manage/videos/980171672/5377db82b2?extension_recording=true
