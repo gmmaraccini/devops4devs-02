@@ -34,5 +34,18 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2        
+      - name:  Configuracao de contexto da aws
+        run: "aws eks update-kubeconfig --name awscluster2"          
+      - name: Deploy no Kubernet
+        uses: Azure/k8s-deploy@v4.9
+        with:
+           manifests: |
+              ./aws/deployment.yaml
+           images: gabrielgmm/reviewfilmes:v${{github.run_number}}
+           imagepullsecrets: |
+              image-pull-secret1
+              image-pull-secret2
+                aws-region: us-east-2   
+
+        
           
