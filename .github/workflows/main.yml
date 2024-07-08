@@ -42,10 +42,6 @@ jobs:
            manifests: |
               ./aws/deployment.yaml
            images: gabrielgmm/reviewfilmes:v${{github.run_number}}
-           imagepullsecrets: |
-              image-pull-secret1
-              image-pull-secret2
-                aws-region: us-east-2   
-
+           
         
           
